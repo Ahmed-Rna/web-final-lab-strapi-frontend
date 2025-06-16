@@ -10,10 +10,7 @@ const CACHE_DURATION = 3600;
 async function getCategories() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/categories?populate=*`, {
-      next: { revalidate: CACHE_DURATION },
-      headers: {
-        'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
-      }
+      next: { revalidate: CACHE_DURATION }
     });
     
     if (!res.ok) {
@@ -30,10 +27,7 @@ async function getCategories() {
 async function getProducts() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/products?populate=*`, {
-      next: { revalidate: CACHE_DURATION },
-      headers: {
-        'Cache-Control': 'public, max-age=3600, stale-while-revalidate=86400'
-      }
+      next: { revalidate: CACHE_DURATION }
     });
     
     if (!res.ok) {

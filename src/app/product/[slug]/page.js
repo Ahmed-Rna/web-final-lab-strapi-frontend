@@ -17,10 +17,10 @@ async function getProduct(slug) {
   try {
     const [productDetailsRes, productImageRes] = await Promise.all([
       fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/products?filters[documentId][$eq]=${slug}&populate[adonConfig][populate]=*`, {
-        cache: 'no-store'
+        cache: 'force-cache' 
       }),
       fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/products?filters[documentId][$eq]=${slug}&populate=image`, {
-        cache: 'no-store'
+        cache: 'force-cache'
       })
     ]);
 
@@ -49,7 +49,7 @@ async function getProduct(slug) {
 async function getAddons() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL}/addons?populate[addonOptions]=*`, {
-      cache: 'no-store'
+      cache: 'force-cache'
     });
     if (!res.ok) throw new Error('Failed to fetch addons');
     const data = await res.json();
