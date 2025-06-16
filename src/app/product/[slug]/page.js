@@ -1,3 +1,4 @@
+import { log } from 'console';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -98,6 +99,7 @@ export default async function ProductPage({ params }) {
     });
   }
 
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <BreadcrumbNav productName={product.itemName} />
@@ -128,6 +130,22 @@ export default async function ProductPage({ params }) {
 
           {/* Right side - Addons */}
           <div className="md:w-1/2">
+            {/* Selected Product Summary */}
+            <div className="sticky top-0 bg-white border-b pb-4 mb-6">
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900">{product.baseInfo?.displayName || product.itemName}</h2>
+                  <p className="text-sm text-gray-600">Selected</p>
+                  {product.baseInfo?.displayTag && (
+                    <span className="inline-block mt-1 px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded">
+                      {product.baseInfo.displayTag}
+                    </span>
+                  )}
+                </div>
+                
+              </div>
+            </div>
+
             {/* Addons Sections */}
             {productAddons.map((addon) => (
               <div key={addon.documentId} className="mb-6">
@@ -165,8 +183,15 @@ export default async function ProductPage({ params }) {
 
             {/* Add to Cart Button */}
             <div className="fixed bottom-0 left-0 right-0 bg-white p-4 md:relative md:p-0">
-              <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 rounded-lg transition-colors">
-                Add to Cart
+              <button 
+                className={`w-full font-bold py-3 px-6 rounded-lg transition-colors ${
+                  product.baseInfo?.avaliable === false
+                    ? 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                    : 'bg-yellow-400 hover:bg-yellow-500 text-black'
+                }`}
+                disabled={product.baseInfo?.avaliable === false}
+              >
+                {product.baseInfo?.avaliable === false ? 'Currently Unavailable' : 'Add to Cart'}
               </button>
             </div>
           </div>

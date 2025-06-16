@@ -3,7 +3,7 @@ import React from 'react'
 function Video() {
   return (
     <>
-    <video muted src="./1748769559.mp4"></video>
+    <video autoPlay muted loop playsInline   src="./1748769559.mp4"></video>
      {/* autoPlay muted loop playsInline  */}
     </>
   )
